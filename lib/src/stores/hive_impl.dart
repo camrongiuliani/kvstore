@@ -106,12 +106,14 @@ class StoreHiveImpl extends KVStore {
   }
 
   @override
-  CustomValueListenable listenable( keyOrKeys ) {
+  CustomValueListenable listenable( [ keyOrKeys ] ) {
     assert( _box != null && _box!.isOpen );
-    assert( keyOrKeys is List<String> || keyOrKeys is String );
+    assert( keyOrKeys == null || keyOrKeys is List<String> || keyOrKeys is String );
 
     var transformer = StreamTransformer.fromHandlers(
-      handleData: ( BoxEvent data, EventSink<KeyValuePair> sink ) => sink.add( KeyValuePair( data.key, data.value ) ),
+      handleData: ( BoxEvent data, EventSink<KeyValuePair> sink ) {
+        return sink.add( KeyValuePair( data.key, data.value ) );
+      },
     );
 
     if ( keyOrKeys is String ) {
@@ -122,7 +124,7 @@ class StoreHiveImpl extends KVStore {
       );
     } else {
       return MultiValueListenable(
-        keyOrKeys,
+        keyOrKeys ?? [],
         _box!.get,
         () => _box!.watch().transform( transformer ),
       );
@@ -130,6 +132,6 @@ class StoreHiveImpl extends KVStore {
   }
 
   @override
-  Stream<dynamic> watch( keyOrKeys ) => listenable( keyOrKeys ).watch();
+  Stream<dynamic> watch( [ keyOrKeys ] ) => listenable( keyOrKeys ).watch();
 
 }

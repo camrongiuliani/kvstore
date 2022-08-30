@@ -21,7 +21,7 @@ class MultiValueListenable extends CustomValueListenable<Map<String, dynamic>> {
   StreamSubscription? _hiveSubscription;
 
   MultiValueListenable( this._keys, this._readValue, this._getStream ) :
-        _values = Map.fromIterable( _keys.map((e) => e), value: ( el ) => null );
+        _values = _keys.isEmpty ? {} : Map.fromIterable( _keys.map((e) => e), value: ( el ) => null );
 
   @override
   Map<String, dynamic> get value => _values;
@@ -33,7 +33,6 @@ class MultiValueListenable extends CustomValueListenable<Map<String, dynamic>> {
 
     _watchStreamController ??= StreamController(
       onListen: () {
-
         for ( var entry in _values.entries ) {
           var value = entry.value;
 
@@ -58,10 +57,13 @@ class MultiValueListenable extends CustomValueListenable<Map<String, dynamic>> {
 
   @override
   void addListener(VoidCallback listener) {
-
     if (_listeners.isEmpty) {
       _hiveSubscription =  _getStream().listen((event) {
-        if ( _keys.contains( event.key ) ) {
+        if ( _keys.isEmpty ) {
+          for (var listener in _listeners) {
+            listener();
+          }
+        } else if ( _keys.contains( event.key ) ) {
           _values[ event.key ] = event.value;
 
           for (var listener in _listeners) {

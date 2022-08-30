@@ -23,9 +23,9 @@ abstract class KVStore {
 
   Future<void> set( String key, dynamic value );
 
-  Stream<dynamic> watch( dynamic keyOrKeys );
+  Stream<dynamic> watch([ dynamic keyOrKeys ]);
 
-  ValueListenable listenable( dynamic keyOrKeys );
+  ValueListenable listenable([ dynamic keyOrKeys ]);
 
   static KVStore build( String name, { KVProvider storageProvider = KVProvider.hive, bool mutable = true } )  {
     switch( storageProvider ) {
