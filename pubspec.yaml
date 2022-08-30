@@ -1,6 +1,6 @@
 name: abstract_kv_store
 description: Abstraction layer for common key-value store libraries, such has Hive.
-version: 0.0.1
+version: 0.0.1+2
 homepage: https://github.com/camrongiuliani/kvstore
 
 environment:

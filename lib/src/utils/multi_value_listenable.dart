@@ -17,8 +17,9 @@ class MultiValueListenable extends CustomValueListenable<Map<String, dynamic>> {
 
   final Map<String, dynamic> _values;
 
-  StreamController? _watchStreamController;
-  StreamSubscription? _hiveSubscription;
+  StreamController? _outputStreamController;
+  StreamSubscription? _inputStreamSubscription;
+
 
   MultiValueListenable( this._keys, this._readValue, this._getStream ) :
         _values = _keys.isEmpty ? {} : Map.fromIterable( _keys.map((e) => e), value: ( el ) => null );
@@ -31,7 +32,7 @@ class MultiValueListenable extends CustomValueListenable<Map<String, dynamic>> {
 
     void _watchListener() => print('Watching Keys');
 
-    _watchStreamController ??= StreamController(
+    _outputStreamController ??= StreamController(
       onListen: () {
         for ( var entry in _values.entries ) {
           var value = entry.value;
@@ -45,26 +46,28 @@ class MultiValueListenable extends CustomValueListenable<Map<String, dynamic>> {
           }
         }
 
-        _watchStreamController?.sink.add( value );
+        _outputStreamController?.sink.add( value );
 
         addListener( _watchListener );
       },
       onCancel: () =>  removeListener( _watchListener ),
     );
-    return _watchStreamController!.stream;
+    return _outputStreamController!.stream;
 
   }
 
   @override
   void addListener(VoidCallback listener) {
     if (_listeners.isEmpty) {
-      _hiveSubscription =  _getStream().listen((event) {
+      _inputStreamSubscription =  _getStream().listen((event) {
         if ( _keys.isEmpty ) {
           for (var listener in _listeners) {
             listener();
           }
         } else if ( _keys.contains( event.key ) ) {
           _values[ event.key ] = event.value;
+
+          _outputStreamController?.sink.add( _values );
 
           for (var listener in _listeners) {
             listener();
@@ -81,10 +84,10 @@ class MultiValueListenable extends CustomValueListenable<Map<String, dynamic>> {
     _listeners.remove(listener);
 
     if (_listeners.isEmpty) {
-      _hiveSubscription?.cancel();
-      _hiveSubscription = null;
-      _watchStreamController?.close();
-      _watchStreamController = null;
+      _inputStreamSubscription?.cancel();
+      _inputStreamSubscription = null;
+      _outputStreamController?.close();
+      _outputStreamController = null;
     }
   }
 }

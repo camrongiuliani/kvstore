@@ -57,6 +57,8 @@ class SingleValueListenable extends CustomValueListenable<dynamic> {
         if ( _value != event.value ) {
           _value = event.value;
 
+          _outputStreamController?.sink.add( _value );
+
           for (var listener in _listeners) {
             listener();
           }

@@ -1,3 +1,8 @@
-## 0.0.1
+## 0.0.1+1
 
-* TODO: Describe initial release.
+- Allow null for key in watch & listenable
+- Add callback to bind call (optional)
+
+## 0.0.1+2
+
+- Fixes Single & Multi Value Listenables
