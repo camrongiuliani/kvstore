@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:kvstore/kvstore.dart';
-import 'package:kvstore/src/utils/key_value_pair.dart';
+import 'package:abstract_kv_store/abstract_kv_store.dart';
+import 'package:abstract_kv_store/src/utils/key_value_pair.dart';
 
 typedef _ValueReader = dynamic Function( String );
 typedef _StreamReader = Stream<KeyValuePair> Function();

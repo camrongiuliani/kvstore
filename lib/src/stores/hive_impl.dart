@@ -1,14 +1,8 @@
-
-
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:kvstore/kvstore.dart';
-import 'package:kvstore/src/utils/key_value_pair.dart';
-import 'package:kvstore/src/utils/multi_value_listenable.dart';
-import 'package:kvstore/src/utils/single_value_listenable.dart';
+import 'package:abstract_kv_store/abstract_kv_store.dart';
+import 'package:abstract_kv_store/src/utils/key_value_pair.dart';
 
 class StoreHiveImpl extends KVStore {
 

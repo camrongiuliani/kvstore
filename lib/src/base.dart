@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:kvstore/kvstore.dart';
+import 'package:abstract_kv_store/abstract_kv_store.dart';
 
 abstract class KVStore {
 
