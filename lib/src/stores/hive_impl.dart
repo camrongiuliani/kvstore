@@ -5,10 +5,10 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:key_value_store/key_value_store.dart';
-import 'package:key_value_store/src/utils/key_value_pair.dart';
-import 'package:key_value_store/src/utils/multi_value_listenable.dart';
-import 'package:key_value_store/src/utils/single_value_listenable.dart';
+import 'package:kvstore/kvstore.dart';
+import 'package:kvstore/src/utils/key_value_pair.dart';
+import 'package:kvstore/src/utils/multi_value_listenable.dart';
+import 'package:kvstore/src/utils/single_value_listenable.dart';
 
 class StoreHiveImpl extends KVStore {
 

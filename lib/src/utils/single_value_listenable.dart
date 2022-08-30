@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
-import 'package:key_value_store/src/base.dart';
-import 'package:key_value_store/src/utils/custom_value_listenable.dart';
-import 'package:key_value_store/src/utils/key_value_pair.dart';
+import 'package:kvstore/src/base.dart';
+import 'package:kvstore/src/utils/custom_value_listenable.dart';
+import 'package:kvstore/src/utils/key_value_pair.dart';
 
 typedef _ValueReader = dynamic Function( String );
 typedef _StreamReader = Stream<KeyValuePair> Function( String );

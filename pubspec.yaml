@@ -1,4 +1,4 @@
-name: key_value_store
+name: kvstore
 description: Abstraction layer for common key-value store libraries.
 version: 0.0.1
 homepage: https://github.com/camrongiuliani/kvstore
