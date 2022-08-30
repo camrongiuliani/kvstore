@@ -7,7 +7,6 @@ import 'package:key_value_store/src/utils/key_value_pair.dart';
 typedef _ValueReader = dynamic Function( String );
 typedef _StreamReader = Stream<KeyValuePair> Function();
 
-
 class MultiValueListenable extends CustomValueListenable<Map<String, dynamic>> {
 
   final List<String> _keys;
